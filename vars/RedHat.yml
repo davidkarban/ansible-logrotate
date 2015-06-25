@@ -1,0 +1,6 @@
+logrotate_compresscmd: "/usr/bin/bzip2"
+
+logrotate_pkgs:
+  - bzip2
+  - logrotate
+
