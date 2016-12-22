@@ -1,21 +1,17 @@
 ---
 - name: Load the OS specific variables
-  tags: logrotate
   include_vars: "{{ ansible_os_family }}.yml"
 
 - name: Install the logrotate package in Redhat derivates
-  tags: logrotate
   yum: name={{ item }} state=present
-  with_items: logrotate_pkgs
+  with_items: '{{ logrotate_pkgs }}'
   when: ansible_os_family == 'RedHat'
 
 - name: Install the logrotate package in Debian derivates
-  tags: logrotate
   apt: name={{ item }} state=present update_cache=yes cache_valid_time=600
-  with_items: logrotate_pkgs
+  with_items: '{{ logrotate_pkgs }}'
   when: ansible_os_family == 'Debian' and ansible_lsb.major_release|int > 5
 
 - name: Load logrotate config file
-  tags: logrotate
   template: src=logrotate.conf.j2 dest=/etc/logrotate.conf owner=root group=root mode=0644
 
