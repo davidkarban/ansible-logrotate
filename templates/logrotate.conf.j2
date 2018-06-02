@@ -9,6 +9,9 @@ rotate 4
 # create new (empty) log files after rotating old ones
 create
 
+{% if ansible_distribution == "Ubuntu" %}su root syslog
+{% endif %}
+
 # uncomment this if you want your log files compressed
 compress
 compresscmd {{ logrotate_compresscmd }}
